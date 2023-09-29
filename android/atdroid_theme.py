@@ -71,11 +71,14 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
     binar_imag = await img_to_binar(image_path)
     bg = await color_to_int32(bg)
     primary_txt = await color_to_int32(primary_txt)
+    chat_select_bg = await color_to_int32(f'#80{secondary_txt[1:]}')
     secondary_txt = await color_to_int32(secondary_txt)
     chat_in = await adjust_color_brightness(bg_hex)
     chat_in_bubble = await color_to_int32(f'#{alfa}{chat_in[1:]}')
     chat_out_bubble = await color_to_int32(f'#{alfa}{bg_hex[1:]}')
     ikb_bg = await color_to_int32(f'#{alfa}{chat_in[1:]}')
+    avatar_gradient1 = chat_in
+    avatar_gradient2 = await adjust_color_brightness(bg_hex, 0.2)
 
     data = [
         f'actionBarActionModeDefault={bg}',
@@ -122,14 +125,14 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         f'avatar_backgroundArchived={primary_txt}',
         f'avatar_backgroundArchivedHidden={primary_txt}',
         
-        f'avatar_backgroundBlue={chat_in}',
-        f'avatar_background2Blue={secondary_txt}',
+        f'avatar_backgroundBlue={avatar_gradient1}',
+        f'avatar_background2Blue={avatar_gradient2}',
         f'avatar_backgroundBlueShadow={secondary_txt}',
-        f'avatar_backgroundCyan={chat_in}',
-        f'avatar_background2Cyan={secondary_txt}',
+        f'avatar_backgroundCyan={avatar_gradient1}',
+        f'avatar_background2Cyan={avatar_gradient2}',
         f'avatar_backgroundCyanShadow={secondary_txt}',
-        f'avatar_backgroundGreen={chat_in}',
-        f'avatar_background2Green={secondary_txt}',
+        f'avatar_backgroundGreen={avatar_gradient1}',
+        f'avatar_background2Green={avatar_gradient2}',
         f'avatar_backgroundGreenShadow={secondary_txt}',
         'avatar_backgroundGroupCreateSpanBlue=-1261655605',
         f'avatar_backgroundInProfileBlue={secondary_txt}',
@@ -139,18 +142,18 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         f'avatar_backgroundInProfilePink={secondary_txt}',
         f'avatar_backgroundInProfileRed={secondary_txt}',
         f'avatar_backgroundInProfileViolet={secondary_txt}',
-        f'avatar_backgroundOrange={chat_in}',
-        f'avatar_background2Orange={secondary_txt}',
+        f'avatar_backgroundOrange={avatar_gradient1}',
+        f'avatar_background2Orange={avatar_gradient2}',
         f'avatar_backgroundOrangeShadow={secondary_txt}',
-        f'avatar_backgroundPink={chat_in}',
-        f'avatar_background2Pink={secondary_txt}',
-        f'avatar_backgroundRed={chat_in}',
-        f'avatar_background2Red={secondary_txt}',
+        f'avatar_backgroundPink={avatar_gradient1}',
+        f'avatar_background2Pink={avatar_gradient2}',
+        f'avatar_backgroundRed={avatar_gradient1}',
+        f'avatar_background2Red={avatar_gradient2}',
         f'avatar_backgroundRedShadow={secondary_txt}',
-        f'avatar_backgroundSaved={chat_in}',
-        f'avatar_background2Saved={secondary_txt}',
-        f'avatar_backgroundViolet={chat_in}',
-        f'avatar_background2Violet={secondary_txt}',
+        f'avatar_backgroundSaved={avatar_gradient1}',
+        f'avatar_background2Saved={avatar_gradient2}',
+        f'avatar_backgroundViolet={avatar_gradient1}',
+        f'avatar_background2Violet={avatar_gradient2}',
         f'avatar_backgroundVioletShadow={secondary_txt}',
         
         f'avatar_nameInMessageBlue={primary_txt}',
@@ -175,6 +178,7 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         f'chat_adminSelectedText={primary_txt}',
         f'chat_adminText={primary_txt}',
         f'chat_attachAudioBackground={secondary_txt}',
+        f'chat_attachIcon={bg}',
         f'chat_attachAudioIcon={bg}',
         f'chat_attachCameraIcon1={secondary_txt}',
         f'chat_attachCameraIcon2={secondary_txt}',
@@ -241,7 +245,7 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         f'chat_inAudioSelectedProgress={bg}',
         f'chat_inAudioTitleText={primary_txt}',
         f'chat_inBubble={chat_in_bubble}',
-        'chat_inBubbleSelected=-514284193',
+        f'chat_inBubbleSelected={chat_out_bubble}',
         f'chat_inBubbleShadow={secondary_txt}',
         f'chat_inContactBackground={primary_txt}',
         f'chat_inContactIcon={bg}',
@@ -331,7 +335,7 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         # f'chat_outBubbleGradient2={chat_out_bubble}',
         # f'chat_outBubbleGradient3={secondary_txt}',
         
-        f'chat_outBubbleSelected={chat_out_bubble}',
+        f'chat_outBubbleSelected={chat_in_bubble}',
         f'chat_outBubbleShadow={secondary_txt}',
         f'chat_outContactBackground={primary_txt}',
         f'chat_outContactIcon={bg}',
@@ -404,7 +408,7 @@ async def create_android_theme(chat_id, image_path, bg, primary_txt, secondary_t
         'chat_secretTimerBackground=-859002421',
         f'chat_secretTimerText={bg}',
         f'chat_secretTimeText={primary_txt}',
-        'chat_selectedBackground=1691134411',
+        f'chat_selectedBackground={chat_select_bg}',
         f'chat_sentError={primary_txt}',
         f'chat_sentErrorIcon={bg}',
         f'chat_serviceBackground={ikb_bg}',

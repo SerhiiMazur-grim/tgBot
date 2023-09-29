@@ -13,7 +13,7 @@ from core.handlers.theme_handlers import handle_photo, handler_abort, handler_de
     handler_back_to_device_choose, handler_back_to_background_color_choose, handler_back_to_primary_text_color_choose, \
     handler_back_to_secondary_text_color_choose
 from core.middleware import CleanupMiddleware, check_and_delete_files
- 
+
 
 async def main():
     await check_and_delete_files()
